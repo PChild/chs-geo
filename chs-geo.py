@@ -13,7 +13,7 @@ gmaps = googlemaps.Client(key=os.getenv("MAPS_KEY"))
 years = [2016, 2017, 2018, 2019, 2020, 2022, 2023]
 
 
-def saveListOfDict(list, filename):
+def saveListOfDict(filename, list):
     with open(filename, 'w', newline='') as out_file:
         dict_writer = csv.DictWriter(out_file, list[0].keys())
         dict_writer.writeheader()
@@ -80,8 +80,9 @@ def getYearDurations(year):
 
     for chunk in range(0, numChunks):
         startIdx = chunk * rowsPerChunk
-        stopIdx = (chunk + 1) * rowsPerChunk - 1
+        stopIdx = (chunk + 1) * rowsPerChunk
         stopIdx = len(teams) if stopIdx > len(teams) else stopIdx
+        print(startIdx, stopIdx)
 
         matrix = gmaps.distance_matrix(
             origins[startIdx:stopIdx],
